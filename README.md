@@ -6,6 +6,9 @@ Calendar reminders application using React
 [![lang: react](https://img.shields.io/badge/lang-react-61daf8.svg?style=flat&logo=react)](https://reactjs.org/)
 [![test: Jest](https://img.shields.io/badge/test-jest-c21325.svg?style=flat&logo=jest)](https://jestjs.io/)
 
+## Install instructions
+Check install doc [INSTALL.md](docs/INSTALL.md)
+
 ## Things to keep in mind for this project
  - attention to details
  - cross-browser compatibility
