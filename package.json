@@ -12,7 +12,8 @@
     "not ExplorerMobile < 11"
   ],
   "scripts": {
-    "serve": "yarn install && yarn webpack-dev-server --env.env=dev --cache --bail"
+    "serve": "yarn install && yarn webpack-dev-server --env.env=dev --cache --bail",
+    "stories": "yarn install && yarn start-storybook -p 7074 -s ./static -c config/storybook --ci"
   },
   "dependencies": {
     "classnames": "^2.2.6",
