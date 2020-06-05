@@ -1,0 +1,16 @@
+{
+  "name": "react-reminders-month-calendar",
+  "version": "1.0.0",
+  "description": "Calendar reminders application using React",
+  "main": "index.js",
+  "repository": "https://github.com/nelsondaza/react-reminders-month-calendar.git",
+  "author": "Nelson Daza <nelson.daza@gmail.com>",
+  "license": "MIT",
+  "browserslist": [
+    "last 3 versions",
+    "not IE < 11",
+    "not ExplorerMobile < 11"
+  ],
+  "scripts": {
+  }
+}
