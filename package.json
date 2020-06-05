@@ -12,6 +12,7 @@
     "not ExplorerMobile < 11"
   ],
   "scripts": {
+    "serve": "yarn install && yarn webpack-dev-server --env.env=dev --cache --bail"
   },
   "dependencies": {
     "classnames": "^2.2.6",
