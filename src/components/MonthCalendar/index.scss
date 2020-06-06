@@ -13,9 +13,10 @@
 
 .cell {
   border: 1px solid $greyLightMed;
-  flex: 0 0 ((100 / 7) * 1%);
-  height: em(140);
-  padding: em(8);
+  flex: 1 1 ((100 / 7) * 1%);
+  height: em(130);
+  overflow: hidden;
+  padding: em(3) em(5);
 }
 
 .day {
