@@ -1,9 +1,11 @@
 
-import SimpleButton from 'components/SimpleButton'
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
+
+import Chip from 'components/Chip'
+import SimpleButton from 'components/SimpleButton'
 
 import styles from './index.scss'
 
@@ -23,15 +25,15 @@ class Day extends React.PureComponent {
           <span>{day}</span>
         </div>
         <div className={styles.events}>
-          <div>Sunday</div>
-          <div>Monday</div>
-          <div>Saturday</div>
-          <div>Saturday</div>
-          <div>Saturday</div>
-          <div>Saturday</div>
+          <Chip disabled={readOnly} className={styles.event}>Sunday ad fasdf asdf a</Chip>
+          <Chip disabled={readOnly} className={styles.event}>Monday</Chip>
+          <Chip disabled={readOnly} className={styles.event}>Saturday</Chip>
+          <Chip disabled={readOnly} className={styles.event}>Saturday</Chip>
+          <Chip disabled={readOnly} className={styles.event}>Saturday</Chip>
+          <Chip disabled={readOnly} className={styles.event}>Saturday</Chip>
         </div>
         <div className={styles.more}>
-          <SimpleButton value="+ 12 more" primary />
+          <SimpleButton disabled={readOnly} value="+ 12 more" primary />
         </div>
       </div>
     )
