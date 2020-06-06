@@ -11,9 +11,8 @@ describe('components::MonthCalendar::Day', () => {
     {
       day: '3',
       events: [
-        m.event(1),
-        m.event(2),
-        m.event(3),
+        m.event(1, { datetime: 1591468704052 - 10000 }),
+        m.event(2, { datetime: 1591468704052 + 10000 }),
       ],
     },
   )
@@ -52,20 +51,50 @@ describe('components::MonthCalendar::Day', () => {
     })
   })
 
-  it('rendes a Chip for each event', () => {
-    expectChange({
-      fn: () => tc.setProps({ events: [m.event()] }),
-      of: () => tc.scope.find('Chip').length,
-      from: 3,
-      to: 1,
-    })
-  })
-
   describe('readOnly', () => {
     it('uses readOnly className when set', () => {
       expectBecameTrue({
         fn: () => tc.setProps({ readOnly: true }),
         of: () => tc.scope.hasClass(styles.readOnly),
+      })
+    })
+  })
+
+  describe('events', () => {
+    it('rendes a Chip for each', () => {
+      expectChange({
+        fn: () => tc.setProps({ events: [m.event()] }),
+        of: () => tc.scope.find('Chip').length,
+        from: 2,
+        to: 1,
+      })
+    })
+
+    it('rendes a limited list of Chip according to maxVisibleEvents', () => {
+      expectChange({
+        fn: () => tc.setProps({ maxVisibleEvents: 1 }),
+        of: () => tc.scope.find('Chip').length,
+        from: 2,
+        to: 1,
+      })
+    })
+
+    it('rendes a +N more button when mora than 3', () => {
+      expectBecameTrue({
+        fn: () => tc.setProps({
+          events: [m.event(1), m.event(2), m.event(3), m.event(4)],
+        }),
+        of: () => tc.scope.find('SimpleButton').filter({ value: '+ 1 more' }).exists(),
+      })
+    })
+
+    it('rendes a +N more button depending on maxVisibleEvents prop', () => {
+      expectBecameTrue({
+        fn: () => tc.setProps({
+          events: [m.event(1), m.event(2), m.event(3), m.event(4)],
+          maxVisibleEvents: 1,
+        }),
+        of: () => tc.scope.find('SimpleButton').filter({ value: '+ 3 more' }).exists(),
       })
     })
   })

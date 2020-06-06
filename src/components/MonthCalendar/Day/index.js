@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
+import moment from 'moment'
 
 import Chip from 'components/Chip'
 import SimpleButton from 'components/SimpleButton'
@@ -11,8 +12,30 @@ import EventSchema from 'schemas/EventSchema'
 import styles from './index.scss'
 
 class Day extends React.PureComponent {
+  getTotalHiddenEvents = () => this.props.events.length > this.props.maxVisibleEvents
+    ? this.props.events.length - this.props.maxVisibleEvents
+    : 0
+
+  renderEvents() {
+    const { events, maxVisibleEvents, readOnly } = this.props
+    return [...events]
+      .sort((a, b) => a.datetime > b.datetime ? 1 : 0)
+      .slice(0, maxVisibleEvents)
+      .map(event => (
+        <Chip
+          ariaLabel={`${event.city.name} ${moment(event.datetime).format('hh:mm a')}: ${event.description}`}
+          className={styles.event}
+          disabled={readOnly}
+          key={event.id}
+        >
+          {event.description}
+        </Chip>
+      ))
+  }
+
   render() {
-    const { active, className, day, events, highlight, readOnly } = this.props
+    const { active, className, day, highlight, readOnly } = this.props
+    const totalHiddenElements = this.getTotalHiddenEvents()
 
     return (
       <div
@@ -27,19 +50,13 @@ class Day extends React.PureComponent {
           <span>{day}</span>
         </div>
         <div className={styles.events}>
-          {events.map(event => (
-            <Chip
-              className={styles.event}
-              disabled={readOnly}
-              key={event.id}
-            >
-              {event.description}
-            </Chip>
-          ))}
+          {this.renderEvents()}
         </div>
-        <div className={styles.more}>
-          <SimpleButton disabled={readOnly} value="+ 12 more" primary />
-        </div>
+        {totalHiddenElements > 0 && (
+          <div className={styles.more}>
+            <SimpleButton disabled={readOnly} value={`+ ${totalHiddenElements} more`} primary />
+          </div>
+        )}
       </div>
     )
   }
@@ -52,6 +69,7 @@ Day.propTypes = {
   active: PropTypes.bool,
   className: PropTypes.string,
   highlight: PropTypes.bool,
+  maxVisibleEvents: PropTypes.number,
   readOnly: PropTypes.bool,
 }
 
@@ -59,6 +77,7 @@ Day.defaultProps = {
   active: false,
   className: '',
   highlight: false,
+  maxVisibleEvents: 3,
   readOnly: false,
 }
 
