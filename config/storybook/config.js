@@ -4,7 +4,10 @@ import { addDecorator, addParameters, configure, storiesOf } from '@storybook/re
 import { configureActions } from '@storybook/addon-actions'
 import { withA11y } from '@storybook/addon-a11y'
 import { withKnobs } from '@storybook/addon-knobs'
+import { withTests } from '@storybook/addon-jest'
 
+// eslint-disable-next-line import/no-unresolved
+import results from '../../dist/coverage/test-results.json'
 import { withEnvironment } from './stories'
 
 addParameters({
@@ -26,6 +29,7 @@ configureActions({ depth: 3, limit: 10 })
 addDecorator(withA11y)
 addDecorator(withEnvironment)
 addDecorator(withKnobs)
+addDecorator(withTests({ results, filesExt: '' }))
 
 function getComponentNameFromFile(filePath) {
   const parts = filePath

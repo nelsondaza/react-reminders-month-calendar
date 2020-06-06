@@ -33,14 +33,15 @@ Open localhost:7070 in your browser
 open http://localhost:7070
 ```
 
+## Start Storybook for component isolation tests
+* Tests will run before so storybook can show the tests results
+```
+yarn stories
+```
+
 ## Run tests and coverage
 ```
 yarn test
-```
-
-## Start Storybook for component isolation tests
-```
-yarn stories
 ```
 
 ## Requirements

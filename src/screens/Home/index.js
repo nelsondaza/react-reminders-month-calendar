@@ -10,7 +10,10 @@ class Home extends React.PureComponent {
     return (
       <div>
         <div className={styles.body}>
-          content
+          <h1>{moment().format('MMMM YYYY')}</h1>
+          <div>
+            content
+          </div>
         </div>
         <footer className={styles.footer}>
           <b>Current date: </b>
