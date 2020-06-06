@@ -21,8 +21,8 @@ git clone https://github.com/nelsondaza/react-reminders-month-calendar.git
 ```
 cd react-reminders-month-calendar
 ```
-### Install and run
- 
+
+## Install and run
 Install dependencies and run local-server (it will use 7070 port by default)
 ```
 yarn serve
@@ -31,6 +31,16 @@ yarn serve
 Open localhost:7070 in your browser 
 ```
 open http://localhost:7070
+```
+
+## Run tests and coverage
+```
+yarn test
+```
+
+## Start Storybook for component isolation tests
+```
+yarn stories
 ```
 
 ## Requirements
