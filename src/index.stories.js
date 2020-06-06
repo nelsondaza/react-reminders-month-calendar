@@ -2,9 +2,9 @@
 import { doc } from 'storybook-readme'
 import { storiesOf } from '@storybook/react'
 
-import INSTALL from '../docs/INSTALL.md'
 import README from '../README.md'
+import REQUIREMENTS from '../docs/REQUIREMENTS.md'
 
 storiesOf(' |Nelson Daza', module)
   .add('README', doc(README))
-  .add('INSTALL', doc(INSTALL))
+  .add('REQUIREMENTS', doc(REQUIREMENTS))
