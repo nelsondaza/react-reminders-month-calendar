@@ -7,9 +7,21 @@ describe('mocks', () => {
       exports,
       [
         'city',
+        'event',
         'weather',
       ],
     )
+  })
+
+  it('creates an event with default props', () => {
+    expect(exports.event()).toMatchObject({
+      city: {},
+      color: '#3B6CF6',
+      datetime: 1591468704052,
+      description: 'Event description',
+      forecast: {},
+      id: 30,
+    })
   })
 
   it('creates a weather with default props', () => {
