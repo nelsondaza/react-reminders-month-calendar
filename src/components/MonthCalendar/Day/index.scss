@@ -2,10 +2,6 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-
-  height: em(180);
-  width: em(180);
-  border: 1px solid $greyLight;
 }
 
 .number {
@@ -31,4 +27,8 @@
   & > * {
     opacity: 0.6;
   }
+}
+
+.highlight {
+  background-color: $blueLightest;
 }

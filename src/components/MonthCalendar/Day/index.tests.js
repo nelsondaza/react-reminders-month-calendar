@@ -7,7 +7,7 @@ describe('components::MonthCalendar::Day', () => {
   const tc = createTestComponent(
     Component,
     {
-      day: 3,
+      day: '3',
     },
   )
 
@@ -22,9 +22,16 @@ describe('components::MonthCalendar::Day', () => {
     })
   })
 
+  it('uses highlight className when prop is set', () => {
+    expectBecameTrue({
+      fn: () => tc.setProps({ highlight: true }),
+      of: () => tc.scope.hasClass(styles.highlight),
+    })
+  })
+
   it('can change initial number', () => {
     expectChange({
-      fn: () => tc.setProps({ day: 34 }),
+      fn: () => tc.setProps({ day: '34' }),
       of: () => tc.scope.find(`.${styles.number}`).text(),
       from: '3',
       to: '34',

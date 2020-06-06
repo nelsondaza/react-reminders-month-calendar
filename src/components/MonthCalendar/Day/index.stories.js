@@ -1,12 +1,13 @@
 
 import React from 'react'
-import { boolean, number, text } from '@storybook/addon-knobs'
+import { boolean, text } from '@storybook/addon-knobs'
 
 import Day from './index'
 
 const getProps = () => ({
   className: text('className', ''),
-  day: number('number', 7),
+  day: text('day', '7'),
+  highlight: boolean('highlight', false),
   readOnly: boolean('readOnly', false),
 })
 
