@@ -38,6 +38,13 @@ describe('components::MonthCalendar::Day', () => {
     })
   })
 
+  it('number users active className when prop is set', () => {
+    expectBecameTrue({
+      fn: () => tc.setProps({ active: true }),
+      of: () => tc.scope.find(`.${styles.number}`).hasClass(styles.active),
+    })
+  })
+
   describe('readOnly', () => {
     it('uses readOnly className when set', () => {
       expectBecameTrue({

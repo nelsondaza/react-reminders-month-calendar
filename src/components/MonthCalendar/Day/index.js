@@ -9,7 +9,7 @@ import styles from './index.scss'
 
 class Day extends React.PureComponent {
   render() {
-    const { className, day, highlight, readOnly } = this.props
+    const { active, className, day, highlight, readOnly } = this.props
     return (
       <div
         className={classnames(
@@ -19,7 +19,9 @@ class Day extends React.PureComponent {
           highlight && styles.highlight,
         )}
       >
-        <div className={styles.number}>{day}</div>
+        <div className={classnames(styles.number, active && styles.active)}>
+          <span>{day}</span>
+        </div>
         <div className={styles.events}>
           <div>Sunday</div>
           <div>Monday</div>
@@ -39,12 +41,14 @@ class Day extends React.PureComponent {
 Day.propTypes = {
   day: PropTypes.string.isRequired,
 
+  active: PropTypes.bool,
   className: PropTypes.string,
   highlight: PropTypes.bool,
   readOnly: PropTypes.bool,
 }
 
 Day.defaultProps = {
+  active: false,
   className: '',
   highlight: false,
   readOnly: false,

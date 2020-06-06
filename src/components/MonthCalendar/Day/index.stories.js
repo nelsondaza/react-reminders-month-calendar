@@ -5,6 +5,7 @@ import { boolean, text } from '@storybook/addon-knobs'
 import Day from './index'
 
 const getProps = () => ({
+  active: boolean('active', false),
   className: text('className', ''),
   day: text('day', '7'),
   highlight: boolean('highlight', false),
