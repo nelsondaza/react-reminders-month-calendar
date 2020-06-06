@@ -1,0 +1,49 @@
+
+.link {
+  color: inherit;
+  outline: none;
+  position: relative;
+  text-decoration: none;
+
+  &::before {
+    transition: opacity 0.4s ease;
+
+    border: 0 solid transparent;
+    border-bottom-width: em(1);
+    bottom: em(0);
+    content: "";
+    height: 0;
+    left: em(3);
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: em(3);
+  }
+
+  &:focus,
+  &:hover {
+    color: $primaryColor;
+
+    &::before {
+      border-color: currentColor;
+      opacity: 1;
+    }
+  }
+  &[disabled] {
+    cursor: default;
+    opacity: 0.8;
+
+    &::before {
+      border-color: currentColor;
+    }
+  }
+  &:active {
+    color: rgba($primaryColor, 0.6)
+  }
+}
+
+.icon {
+  font-size: em(13);
+  margin: em(-1) 0 em(2) em(2);
+  opacity: 0.9;
+}
