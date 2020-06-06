@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { ChildrenSchema } from 'schemas'
 
+import '../assets/semantic-ui/semantic.css'
+import 'screens/Site/index.scss'
 import './stories.css'
 
 class StoriesHolder extends React.PureComponent {
