@@ -5,11 +5,16 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import moment from 'moment'
 
+import EventSchema from 'schemas/EventSchema'
+
 import Day from './Day'
 
 import styles from './index.scss'
 
 class MonthCalendar extends React.PureComponent {
+  getDayEvents = day => this.props.events
+    .filter(event => moment(event.datetime).isSame(day, 'day'))
+
   renderDays() {
     const today = moment().startOf('day')
     const firstDay = today.clone()
@@ -24,6 +29,7 @@ class MonthCalendar extends React.PureComponent {
           active={firstDay.isSame(today, 'day')}
           className={styles.day}
           day={firstDay.format('D')}
+          events={this.getDayEvents(firstDay)}
           highlight={firstDay.format('d') === '0'}
           key={firstDay.valueOf()}
           readOnly={!firstDay.isSame(today, 'month')}
@@ -58,6 +64,8 @@ class MonthCalendar extends React.PureComponent {
 }
 
 MonthCalendar.propTypes = {
+  events: PropTypes.arrayOf(EventSchema).isRequired,
+
   className: PropTypes.string,
 }
 
