@@ -16,12 +16,12 @@ const getProps = () => ({
 
 export const normal = () => (
   <div>
-    Normal Chip <Chip {...getProps()} /> here.
+    Normal Chip <Chip {...getProps()} />
     <br />
-    Disabled Chip <Chip {...getProps()} disabled /> here.
+    Disabled Chip <Chip {...getProps()} disabled />
     <br />
-    Active Chip <Chip {...getProps()} active /> here.
+    Active Chip <Chip {...getProps()} active />
     <br />
-    Blue Chip <Chip {...getProps()} style={{ color: '#3B6CF6' }} /> here.
+    Blue Chip <Chip {...getProps()} style={{ color: '#3B6CF6' }} />
   </div>
 )
