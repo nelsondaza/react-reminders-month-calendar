@@ -7,6 +7,7 @@ describe('echemas', () => {
       exports,
       [
         'ChildrenSchema',
+        'CitySchema',
       ],
     )
   })
