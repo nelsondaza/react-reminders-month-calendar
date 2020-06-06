@@ -7,8 +7,18 @@ describe('mocks', () => {
       exports,
       [
         'city',
+        'weather',
       ],
     )
+  })
+
+  it('creates a weather with default props', () => {
+    expect(exports.weather()).toMatchObject({
+      id: 20,
+      name: 'Clouds',
+      description: 'broken clouds',
+      icon: '04d',
+    })
   })
 
   it('creates a city with default props', () => {
