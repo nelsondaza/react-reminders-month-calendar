@@ -3,7 +3,7 @@ import buildMock from './buildMock'
 import city from './city'
 import weather from './weather'
 
-export default data => buildMock(data, {
+export default buildMock({
   city: city(),
   color: '#3B6CF6',
   datetime: 1591468704052,

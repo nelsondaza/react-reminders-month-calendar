@@ -2,11 +2,17 @@
 /*
   Creates a simple mock object with id, or props
   The following are equivalent:
-    mock.xType({ id: 'DFGSKSA5DA4' })
     mock.xType('DFGSKSA5DA4')
+    mock.xType({ id: 'DFGSKSA5DA4' })
+
+  mock.xType('DFGSKSA5DA4', { someProp: 'prop' })
 */
-export default (data = {}, defaultProps) => (
-  typeof data === 'string' || typeof data === 'number'
-    ? { ...defaultProps, id: data }
-    : { ...defaultProps, ...data }
-)
+
+export default (defaultProps) => (...datas) => {
+  let mock = { ...defaultProps }
+  datas.forEach((data) => Object.assign(
+    mock,
+    typeof data === 'string' || typeof data === 'number' ? { id: data } : data
+  ))
+  return mock
+}
