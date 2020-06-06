@@ -1,5 +1,6 @@
 
 import React from 'react'
+import { action } from '@storybook/addon-actions'
 import { array, boolean, text } from '@storybook/addon-knobs'
 
 import m from 'mocks'
@@ -19,6 +20,7 @@ const getProps = () => ({
     m.event(6),
   ]),
   highlight: boolean('highlight', false),
+  onAddEvent: action('onAddEvent'),
   readOnly: boolean('readOnly', false),
 })
 

@@ -14,6 +14,7 @@ describe('components::MonthCalendar::Day', () => {
         m.event(1, { datetime: 1591468704052 - 10000 }),
         m.event(2, { datetime: 1591468704052 + 10000 }),
       ],
+      onAddEvent: jest.fn(),
     },
   )
 
@@ -95,6 +96,35 @@ describe('components::MonthCalendar::Day', () => {
           maxVisibleEvents: 1,
         }),
         of: () => tc.scope.find('SimpleButton').filter({ value: '+ 3 more' }).exists(),
+      })
+    })
+  })
+
+  describe('onAddEvent', () => {
+    it('is called when click inside', () => {
+      expectChange({
+        fn: () => tc.scope.simulate('click', { target: { nodeName: 'DIV' } }),
+        of: () => tc.getProp('onAddEvent').mock.calls.length,
+        by: 1,
+      })
+    })
+
+    it('is NOT called when readOnly', () => {
+      expectNoChange({
+        fn: () => {
+          tc.setProps({ readOnly: true })
+          tc.scope.simulate('click', { target: { nodeName: 'DIV' } })
+        },
+        of: () => tc.getProp('onAddEvent').mock.calls.length,
+        from: 0,
+      })
+    })
+
+    it('is NOT called when click on button', () => {
+      expectNoChange({
+        fn: () => tc.scope.simulate('click', { target: { nodeName: 'BUTTON' } }),
+        of: () => tc.getProp('onAddEvent').mock.calls.length,
+        from: 0,
       })
     })
   })

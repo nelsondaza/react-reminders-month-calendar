@@ -16,6 +16,8 @@ class Day extends React.PureComponent {
     ? this.props.events.length - this.props.maxVisibleEvents
     : 0
 
+  onAddEvent = evt => !this.props.readOnly && evt.target.nodeName !== 'BUTTON' && this.props.onAddEvent(evt)
+
   renderEvents() {
     const { events, maxVisibleEvents, readOnly } = this.props
     return [...events]
@@ -45,6 +47,8 @@ class Day extends React.PureComponent {
           readOnly && styles.readOnly,
           highlight && styles.highlight,
         )}
+        onClick={this.onAddEvent}
+        tabIndex={readOnly ? -1 : 0}
       >
         <div className={classnames(styles.number, active && styles.active)}>
           <span>{day}</span>
@@ -65,6 +69,7 @@ class Day extends React.PureComponent {
 Day.propTypes = {
   day: PropTypes.string.isRequired,
   events: PropTypes.arrayOf(EventSchema).isRequired,
+  onAddEvent: PropTypes.func.isRequired,
 
   active: PropTypes.bool,
   className: PropTypes.string,
