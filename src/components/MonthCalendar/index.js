@@ -21,6 +21,7 @@ class MonthCalendar extends React.PureComponent {
     while(lastDay.diff(firstDay, 'days', true) >= 0) {
       days.push(
         <Day
+          active={firstDay.isSame(today, 'day')}
           className={styles.day}
           day={firstDay.format('D')}
           highlight={firstDay.format('d') === '0'}
