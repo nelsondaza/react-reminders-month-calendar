@@ -1,0 +1,42 @@
+
+.wrapper {
+  transition: background 0.2s ease;
+
+  background: linear-gradient(to right, $blue, $teal, $green);
+  border-radius: em(2);
+  height: em(8);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.complete {}
+
+.alert {
+  background: linear-gradient(to right, $yellow, $orange, $red);
+}
+
+.inverted {
+  background: linear-gradient(to left, $blue, $teal, $green);
+
+  &.alert {
+    background: linear-gradient(to left, $yellow, $orange, $red);
+  }
+}
+
+.bar {
+  transition: width 0.7s ease-in-out, background 0.2s ease;
+
+  background-color: $greyLight;
+  bottom: 0;
+  height: 100%;
+  left: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
