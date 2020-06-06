@@ -32,8 +32,8 @@
 }
 
 .readOnly {
-  & > * {
-    opacity: 0.9;
+  & > .number {
+    color: $grey;
   }
 }
 
