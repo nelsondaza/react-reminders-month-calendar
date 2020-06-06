@@ -1,0 +1,38 @@
+
+.wrapper {
+  border: 1px solid $greyLightMed;
+}
+
+.days {
+  display: flex;
+  border-bottom: 1px solid $greyLightMed;
+
+  & > div {
+    border-right: 1px solid $greyLightMed;
+    flex: 0 0 ((100 / 7) * 1%);
+    padding: em(8);
+    height: em(150);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.titles {
+  @extend .days;
+
+  background-color: $greyLightest;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+
+  & > div {
+    height: auto;
+    overflow: hidden;
+  }
+}
