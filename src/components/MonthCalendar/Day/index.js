@@ -6,12 +6,14 @@ import classnames from 'classnames'
 
 import Chip from 'components/Chip'
 import SimpleButton from 'components/SimpleButton'
+import EventSchema from 'schemas/EventSchema'
 
 import styles from './index.scss'
 
 class Day extends React.PureComponent {
   render() {
-    const { active, className, day, highlight, readOnly } = this.props
+    const { active, className, day, events, highlight, readOnly } = this.props
+
     return (
       <div
         className={classnames(
@@ -25,12 +27,15 @@ class Day extends React.PureComponent {
           <span>{day}</span>
         </div>
         <div className={styles.events}>
-          <Chip disabled={readOnly} className={styles.event}>Sunday ad fasdf asdf a</Chip>
-          <Chip disabled={readOnly} className={styles.event}>Monday</Chip>
-          <Chip disabled={readOnly} className={styles.event}>Saturday</Chip>
-          <Chip disabled={readOnly} className={styles.event}>Saturday</Chip>
-          <Chip disabled={readOnly} className={styles.event}>Saturday</Chip>
-          <Chip disabled={readOnly} className={styles.event}>Saturday</Chip>
+          {events.map(event => (
+            <Chip
+              className={styles.event}
+              disabled={readOnly}
+              key={event.id}
+            >
+              {event.description}
+            </Chip>
+          ))}
         </div>
         <div className={styles.more}>
           <SimpleButton disabled={readOnly} value="+ 12 more" primary />
@@ -42,6 +47,7 @@ class Day extends React.PureComponent {
 
 Day.propTypes = {
   day: PropTypes.string.isRequired,
+  events: PropTypes.arrayOf(EventSchema).isRequired,
 
   active: PropTypes.bool,
   className: PropTypes.string,
