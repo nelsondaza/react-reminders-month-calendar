@@ -23,7 +23,7 @@ class Day extends React.PureComponent {
   renderEvents() {
     const { events, maxVisibleEvents, readOnly } = this.props
     return [...events]
-      .sort((a, b) => (a.datetime > b.datetime ? 1 : 0))
+      .sort((a, b) => (a.datetime - b.datetime))
       .slice(0, maxVisibleEvents)
       .map(event => (
         <Chip
