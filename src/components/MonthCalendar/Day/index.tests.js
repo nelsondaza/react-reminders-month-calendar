@@ -15,6 +15,7 @@ describe('components::MonthCalendar::Day', () => {
         m.event(2, { datetime: 1591468704052 + 10000 }),
       ],
       onAddEvent: jest.fn(),
+      onEditEvent: jest.fn(),
     },
   )
 
@@ -49,6 +50,14 @@ describe('components::MonthCalendar::Day', () => {
     expectBecameTrue({
       fn: () => tc.setProps({ active: true }),
       of: () => tc.scope.find(`.${styles.number}`).hasClass(styles.active),
+    })
+  })
+
+  it('onEditEvent is called when click on a Chip', () => {
+    expectChange({
+      fn: () => tc.scope.find('Chip').at(0).simulate('click', m.event()),
+      of: () => tc.getProp('onEditEvent').mock.calls.length,
+      by: 1,
     })
   })
 

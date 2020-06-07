@@ -21,6 +21,7 @@ const getProps = () => ({
   ]),
   highlight: boolean('highlight', false),
   onAddEvent: action('onAddEvent'),
+  onEditEvent: action('onEditEvent'),
   readOnly: boolean('readOnly', false),
 })
 

@@ -21,7 +21,7 @@ class Day extends React.PureComponent {
   onAddEvent = evt => !this.props.readOnly && evt.target.nodeName !== 'BUTTON' && this.props.onAddEvent(evt)
 
   renderEvents() {
-    const { events, maxVisibleEvents, readOnly } = this.props
+    const { events, maxVisibleEvents, onEditEvent, readOnly } = this.props
     return [...events]
       .sort((a, b) => (a.datetime - b.datetime))
       .slice(0, maxVisibleEvents)
@@ -32,6 +32,7 @@ class Day extends React.PureComponent {
           disabled={readOnly}
           key={event.id}
           style={{ color: event.color }}
+          onClick={() => onEditEvent(event)}
         >
           {event.description}
         </Chip>
@@ -75,6 +76,7 @@ Day.propTypes = {
   day: PropTypes.string.isRequired,
   events: PropTypes.arrayOf(EventSchema).isRequired,
   onAddEvent: PropTypes.func.isRequired,
+  onEditEvent: PropTypes.func.isRequired,
 
   active: PropTypes.bool,
   className: PropTypes.string,
