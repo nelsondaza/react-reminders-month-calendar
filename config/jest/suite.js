@@ -3,19 +3,24 @@ import React from 'react'
 import Adapter from 'enzyme-adapter-react-16'
 import Enzyme, { shallow, render, mount } from 'enzyme'
 
+import { ajaxInterceptor, epicToPromise } from './suiteEpics'
+
 Enzyme.configure({ adapter: new Adapter() })
 
+global.ajaxIntercept = ajaxInterceptor.intercept
+global.ajaxInterceptor = ajaxInterceptor
+global.epicToPromise = epicToPromise
 global.mount = mount
 global.render = render
 global.shallow = shallow
 
-jest.mock('rxjs/observable/dom/ajax', () => ({
+jest.mock('rxjs/ajax', () => ({
   ajax: {
-    get: (...args) => global.ajaxInterceptor.get(...args),
-    post: (...args) => global.ajaxInterceptor.post(...args),
     delete: (...args) => global.ajaxInterceptor.delete(...args),
-    put: (...args) => global.ajaxInterceptor.put(...args),
+    get: (...args) => global.ajaxInterceptor.get(...args),
     patch: (...args) => global.ajaxInterceptor.patch(...args),
+    post: (...args) => global.ajaxInterceptor.post(...args),
+    put: (...args) => global.ajaxInterceptor.put(...args),
   },
 }))
 

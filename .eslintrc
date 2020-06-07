@@ -8,13 +8,12 @@
     "ajaxIntercept": true,
     "createTestComponent": true,
     "createTestComponentConnected": true,
+    "epicToPromise": true,
     "expectBecameFalse": true,
     "expectBecameTrue": true,
     "expectChange": true,
     "expectKeys": true,
-    "expectNoChange": true,
-    "FEATURES_FLAGS": true,
-    "SYSTEM": true
+    "expectNoChange": true
   },
   "parser": "babel-eslint",
   "plugins": ["react-hooks"],
