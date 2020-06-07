@@ -24,6 +24,7 @@ const getProps = () => ({
     m.event(8, { datetime: today + (day * 3) }),
   ]),
   onAddEvent: action('onAddEvent'),
+  onEditEvent: action('onEditEvent'),
 })
 
 export const normal = () => (

@@ -15,6 +15,7 @@ describe('components::MonthCalendar', () => {
         m.event(6, { datetime: 1591468704052 + 10000 }),
       ],
       onAddEvent: jest.fn(),
+      onEditEvent: jest.fn(),
     },
   )
 

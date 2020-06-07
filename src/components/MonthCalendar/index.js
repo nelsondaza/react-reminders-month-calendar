@@ -35,6 +35,7 @@ class MonthCalendar extends React.PureComponent {
           highlight={firstDay.format('d') === '0'}
           key={value}
           onAddEvent={() => this.props.onAddEvent(value)}
+          onEditEvent={this.props.onEditEvent}
           readOnly={readOnly}
         />,
       )
@@ -69,6 +70,7 @@ class MonthCalendar extends React.PureComponent {
 MonthCalendar.propTypes = {
   events: PropTypes.arrayOf(EventSchema).isRequired,
   onAddEvent: PropTypes.func.isRequired,
+  onEditEvent: PropTypes.func.isRequired,
 
   className: PropTypes.string,
 }
