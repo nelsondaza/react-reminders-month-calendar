@@ -5,7 +5,7 @@ export default (state = actions.getInitialState().events, action = {}) => {
   switch (action.type) {
     case actions.EVENTS_ADD: {
       return [
-        ...state,
+        ...state.filter(event => event.id !== action.payload.id),
         action.payload,
       ]
     }

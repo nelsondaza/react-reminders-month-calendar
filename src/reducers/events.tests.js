@@ -31,5 +31,13 @@ describe('reducer::events', () => {
         [m.event()],
       )
     })
+
+    it('replaces an event with the same id', () => {
+      expectState(
+        actions.eventsAdd(m.event(2, { name: 'the replace' })),
+        [m.event(), m.event(2, { name: 'the replace' })],
+        [m.event(), m.event(2)],
+      )
+    })
   })
 })
