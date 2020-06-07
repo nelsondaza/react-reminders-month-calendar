@@ -5,7 +5,9 @@ import { connect } from 'react-redux'
 
 import DatePicker from 'react-datepicker'
 import { Button, Form } from 'semantic-ui-react'
+import { SketchPicker } from 'react-color'
 
+import Chip from 'components/Chip'
 import SimpleButton from 'components/SimpleButton'
 import { eventsAdd } from 'actions'
 import { EventSchema, RouterHistorySchema, RouterMatchSchema } from 'schemas'
@@ -19,12 +21,13 @@ class Event extends React.PureComponent {
     id: 0,
     city: '',
     cityError: false,
-    color: '',
+    color: '#3B6CF6',
     colorError: false,
     datetime: +new Date(),
     datetimeError: false,
     description: '',
     descriptionError: false,
+    showColorPicker: false,
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -52,6 +55,8 @@ class Event extends React.PureComponent {
 
   onBackClick = () => this.props.history.push('/')
 
+  onChangeColor = ({ hex }) => this.setState({ color: hex, showColorPicker: false })
+
   onChangeField = ({ target: { name, value } }) => this.setState({
     [name]: value,
     [`${name}Error`]: false,
@@ -67,7 +72,7 @@ class Event extends React.PureComponent {
       newState.cityError = true
       errors += 1
     }
-    if (!newState.color) {
+    if (!newState.color || !newState.color.match(/^#([0-9a-f]{6})$/i)) {
       newState.colorError = true
       errors += 1
     }
@@ -131,7 +136,7 @@ class Event extends React.PureComponent {
                   />
                 </Form.Field>
               </Form.Group>
-              <Form.Group widths="equal">
+              <Form.Group>
                 <Form.Input
                   error={this.state.descriptionError}
                   label="Reminder"
@@ -141,9 +146,39 @@ class Event extends React.PureComponent {
                   placeholder="Description..."
                   required
                   value={this.state.description}
+                  width={4}
                 />
+                <Form.Field required width={4}>
+                  {this.state.showColorPicker && (
+                    <>
+                      <div
+                        className={styles.cover}
+                        onClick={() => this.setState({ showColorPicker: false })}
+                        onKeyPress={() => this.setState({ showColorPicker: false })}
+                        role="link"
+                        tabIndex={-1}
+                      />
+                      <div className={styles.colorPicker}>
+                        <SketchPicker
+                          color={this.state.color}
+                          onChangeComplete={this.onChangeColor}
+                          disableAlpha
+                        />
+                      </div>
+                    </>
+                  )}
+                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                  <label htmlFor="color2">Color</label>
+                  <Chip
+                    ariaLabel={this.state.description}
+                    style={{ color: this.state.color || 'inherit' }}
+                    onClick={() => this.setState({ showColorPicker: true })}
+                  >
+                    {this.state.description || 'Color Preview'}
+                  </Chip>
+                </Form.Field>
               </Form.Group>
-              <Form.Group widths="equal">
+              <Form.Group>
                 <Form.Input
                   error={this.state.cityError}
                   label="City"
@@ -152,18 +187,10 @@ class Event extends React.PureComponent {
                   placeholder="City..."
                   required
                   value={this.state.city}
-                />
-                <Form.Input
-                  error={this.state.colorError}
-                  label="Color"
-                  name="color"
-                  onChange={this.onChangeField}
-                  placeholder="#RRGGBB or rgba(#, #, #, #)"
-                  required
-                  value={this.state.color}
+                  width={4}
                 />
               </Form.Group>
-              <Form.Group widths="equal">
+              <Form.Group>
                 <Button onClick={this.onSave} primary>Save</Button>
                 <Button onClick={this.onBackClick}>Cancel</Button>
               </Form.Group>

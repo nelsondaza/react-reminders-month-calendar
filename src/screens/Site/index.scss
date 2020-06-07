@@ -7,10 +7,12 @@
 
 html {
   line-height: $lineHeight;
+  height: 100% !important;
 }
 
 body {
   transition: all 0.2s ease;
+  height: 100% !important;
 
   -webkit-font-smoothing: antialiased;
   background-color: $white;
