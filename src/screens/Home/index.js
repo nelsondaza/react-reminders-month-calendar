@@ -3,6 +3,8 @@ import React from 'react'
 
 import moment from 'moment'
 
+import MonthCalendar from 'components/MonthCalendar'
+
 import styles from './index.scss'
 
 class Home extends React.PureComponent {
@@ -12,7 +14,7 @@ class Home extends React.PureComponent {
         <div className={styles.body}>
           <h1>{moment().format('MMMM YYYY')}</h1>
           <div>
-            content
+            <MonthCalendar events={[]} onAddEvent={console.log} />
           </div>
         </div>
         <footer className={styles.footer}>
