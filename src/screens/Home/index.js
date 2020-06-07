@@ -13,13 +13,19 @@ import styles from './index.scss'
 class Home extends React.PureComponent {
   onAddEvent = day => this.props.history.push(`/event/new/${day}`)
 
+  onEditEvent = ({ datetime, id }) => this.props.history.push(`/event/${id}/${datetime}`)
+
   render() {
     return (
       <div>
         <div className={styles.body}>
           <h1>{moment().format('MMMM YYYY')}</h1>
           <div>
-            <MonthCalendar events={this.props.events} onAddEvent={this.onAddEvent} />
+            <MonthCalendar
+              events={this.props.events}
+              onAddEvent={this.onAddEvent}
+              onEditEvent={this.onEditEvent}
+            />
           </div>
         </div>
         <footer className={styles.footer}>
