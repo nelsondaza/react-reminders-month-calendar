@@ -7,6 +7,7 @@ import ProgressBar from 'components/ProgressBar'
 import Site from 'screens/Site'
 
 const HomePage = lazy(() => import(/* webpackChunkName: 'home' */ 'screens/Home'))
+const EventPage = lazy(() => import(/* webpackChunkName: 'event' */ 'screens/Event'))
 const NotFoundPage = lazy(() => import(/* webpackChunkName: 'not_found' */ 'screens/NotFound'))
 
 export default () => (
@@ -14,6 +15,7 @@ export default () => (
     <Suspense fallback={<ProgressBar ariaLabel="Cargando..." value={100} />}>
       <Switch>
         <Route path="/" component={HomePage} exact />
+        <Route path="/event/:id/:day?" component={EventPage} exact />
 
         <Route component={NotFoundPage} />
       </Switch>
