@@ -19,13 +19,19 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "connected-react-router": "^6.8.0",
     "core-js": "^3.6.5",
+    "history": "^4.10.1",
     "moment": "^2.26.0",
     "prop-types": "^15.7.2",
-    "rc-calendar": "^9.15.10",
+    "rc-calendar": "^9.15.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2"
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5",
+    "redux-observable": "^1.2.0",
+    "rxjs": "^6.5.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
@@ -83,6 +89,7 @@
     "postcss-hexrgba": "^2.0.0",
     "postcss-loader": "^3.0.0",
     "postcss-reporter": "^6.0.1",
+    "redux-logger": "^3.0.6",
     "rimraf": "^3.0.2",
     "sass-loader": "^8.0.2",
     "sass-resources-loader": "^2.0.3",
