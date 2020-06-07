@@ -10,6 +10,7 @@ describe('echemas', () => {
         'CitySchema',
         'EventSchema',
         'RouterHistorySchema',
+        'RouterMatchSchema',
         'WeatherSchema',
       ],
     )
