@@ -1,17 +1,20 @@
 
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import DatePicker from 'react-datepicker'
 import { Button, Form } from 'semantic-ui-react'
 
 import SimpleButton from 'components/SimpleButton'
+import { eventsAdd } from 'actions'
 import { RouterHistorySchema, RouterMatchSchema } from 'schemas'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
 import styles from './index.scss'
 
-class Home extends React.PureComponent {
+class Event extends React.PureComponent {
   constructor(props) {
     super(props)
 
@@ -56,7 +59,23 @@ class Home extends React.PureComponent {
     if (errors) {
       this.setState(newState)
     } else {
-      // @todo do a real save
+      this.props.eventsAdd({
+        city: {
+          country: 'CO',
+          id: +(new Date()),
+          name: newState.city,
+        },
+        color: newState.color,
+        datetime: +newState.datetime,
+        description: newState.description,
+        forecast: {
+          description: 'broken clouds',
+          icon: '04d',
+          id: +(new Date()),
+          name: 'Clouds',
+        },
+        id: +(new Date()),
+      })
       this.onBackClick()
     }
   }
@@ -139,9 +158,10 @@ class Home extends React.PureComponent {
   }
 }
 
-Home.propTypes = {
+Event.propTypes = {
+  eventsAdd: PropTypes.func.isRequired,
   history: RouterHistorySchema.isRequired,
   match: RouterMatchSchema.isRequired,
 }
 
-export default Home
+export default connect(null, { eventsAdd })(Event)
