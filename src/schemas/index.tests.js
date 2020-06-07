@@ -8,6 +8,9 @@ describe('echemas', () => {
       [
         'ChildrenSchema',
         'CitySchema',
+        'EventSchema',
+        'RouterHistorySchema',
+        'WeatherSchema',
       ],
     )
   })
