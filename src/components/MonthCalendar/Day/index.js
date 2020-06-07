@@ -12,16 +12,18 @@ import EventSchema from 'schemas/EventSchema'
 import styles from './index.scss'
 
 class Day extends React.PureComponent {
-  getTotalHiddenEvents = () => this.props.events.length > this.props.maxVisibleEvents
-    ? this.props.events.length - this.props.maxVisibleEvents
-    : 0
+  getTotalHiddenEvents = () => (
+    this.props.events.length > this.props.maxVisibleEvents
+      ? this.props.events.length - this.props.maxVisibleEvents
+      : 0
+  )
 
   onAddEvent = evt => !this.props.readOnly && evt.target.nodeName !== 'BUTTON' && this.props.onAddEvent(evt)
 
   renderEvents() {
     const { events, maxVisibleEvents, readOnly } = this.props
     return [...events]
-      .sort((a, b) => a.datetime > b.datetime ? 1 : 0)
+      .sort((a, b) => (a.datetime > b.datetime ? 1 : 0))
       .slice(0, maxVisibleEvents)
       .map(event => (
         <Chip
@@ -47,7 +49,9 @@ class Day extends React.PureComponent {
           readOnly && styles.readOnly,
           highlight && styles.highlight,
         )}
+        role="link"
         onClick={this.onAddEvent}
+        onKeyPress={this.onAddEvent}
         tabIndex={readOnly ? -1 : 0}
       >
         <div className={classnames(styles.number, active && styles.active)}>
