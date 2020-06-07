@@ -14,6 +14,7 @@ describe('components::MonthCalendar', () => {
         m.event(5, { datetime: 1591468704052 + 10000 }),
         m.event(6, { datetime: 1591468704052 + 10000 }),
       ],
+      onAddEvent: jest.fn(),
     },
   )
 
@@ -25,6 +26,14 @@ describe('components::MonthCalendar', () => {
     expectBecameTrue({
       fn: () => tc.setProps({ className: 'myClass' }),
       of: () => tc.scope.hasClass('myClass'),
+    })
+  })
+
+  it('calls onAddEvent with the right datetime', () => {
+    expectChange({
+      fn: () => tc.scope.find('Day').filter({ active: true }).at(0).simulate('addEvent'),
+      of: () => tc.getProp('onAddEvent').mock.calls.length,
+      by: 1,
     })
   })
 })

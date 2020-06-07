@@ -25,6 +25,17 @@
   border-top-color: transparent;
 }
 
+.activeDay {
+  @extend .day;
+
+  &:focus,
+  &:hover {
+    border: 1px solid $blueLight;
+    border-right-color: $blue;
+    border-bottom-color: $blue;
+  }
+}
+
 .titles {
   display: flex;
 
