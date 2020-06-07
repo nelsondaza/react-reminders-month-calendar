@@ -1,10 +1,10 @@
 
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import moment from 'moment'
 
 import SimpleButton from 'components/SimpleButton'
+import { RouterHistorySchema } from 'schemas'
 
 import styles from './index.scss'
 
@@ -30,9 +30,7 @@ class Home extends React.PureComponent {
 }
 
 Home.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+  history: RouterHistorySchema.isRequired,
 }
 
 export default Home
