@@ -1,10 +1,12 @@
 
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import moment from 'moment'
 
 import MonthCalendar from 'components/MonthCalendar'
-import { RouterHistorySchema } from 'schemas'
+import { EventSchema, RouterHistorySchema } from 'schemas'
 
 import styles from './index.scss'
 
@@ -17,7 +19,7 @@ class Home extends React.PureComponent {
         <div className={styles.body}>
           <h1>{moment().format('MMMM YYYY')}</h1>
           <div>
-            <MonthCalendar events={[]} onAddEvent={this.onAddEvent} />
+            <MonthCalendar events={this.props.events} onAddEvent={this.onAddEvent} />
           </div>
         </div>
         <footer className={styles.footer}>
@@ -30,7 +32,8 @@ class Home extends React.PureComponent {
 }
 
 Home.propTypes = {
+  events: PropTypes.arrayOf(EventSchema).isRequired,
   history: RouterHistorySchema.isRequired,
 }
 
-export default Home
+export default connect(({ events }) => ({ events }))(Home)
