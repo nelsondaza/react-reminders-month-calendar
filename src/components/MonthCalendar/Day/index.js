@@ -31,6 +31,7 @@ class Day extends React.PureComponent {
           className={styles.event}
           disabled={readOnly}
           key={event.id}
+          style={{ color: event.color }}
         >
           {event.description}
         </Chip>
