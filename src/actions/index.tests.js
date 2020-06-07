@@ -7,6 +7,7 @@ describe('actions', () => {
       exports.getInitialState(),
       [
         'events',
+        'cities',
       ],
     )
   })
