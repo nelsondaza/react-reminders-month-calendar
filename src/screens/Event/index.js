@@ -8,26 +8,46 @@ import { Button, Form } from 'semantic-ui-react'
 
 import SimpleButton from 'components/SimpleButton'
 import { eventsAdd } from 'actions'
-import { RouterHistorySchema, RouterMatchSchema } from 'schemas'
+import { EventSchema, RouterHistorySchema, RouterMatchSchema } from 'schemas'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
 import styles from './index.scss'
 
 class Event extends React.PureComponent {
-  constructor(props) {
-    super(props)
+  state = {
+    id: 0,
+    city: '',
+    cityError: false,
+    color: '',
+    colorError: false,
+    datetime: +new Date(),
+    datetimeError: false,
+    description: '',
+    descriptionError: false,
+  }
 
-    this.state = {
-      city: '',
-      cityError: false,
-      color: '',
-      colorError: false,
-      datetime: new Date(+props.match.params.day),
-      datetimeError: false,
-      description: '',
-      descriptionError: false,
+  static getDerivedStateFromProps(props, state) {
+    const id = +props.match.params.id || 0
+
+    if (id !== state.id) {
+      const newState = {
+        id,
+        datetime: new Date(+props.match.params.day),
+      }
+
+      if (id) {
+        const event = props.events.find(e => e.id === id)
+        if (event) {
+          newState.city = event.city.name
+          newState.color = event.color
+          newState.datetime = event.datetime
+          newState.description = event.description
+        }
+      }
+      return newState
     }
+    return null
   }
 
   onBackClick = () => this.props.history.push('/')
@@ -74,7 +94,7 @@ class Event extends React.PureComponent {
           id: +(new Date()),
           name: 'Clouds',
         },
-        id: +(new Date()),
+        id: this.state.id || +(new Date()),
       })
       this.onBackClick()
     }
@@ -159,9 +179,13 @@ class Event extends React.PureComponent {
 }
 
 Event.propTypes = {
+  events: PropTypes.arrayOf(EventSchema).isRequired,
   eventsAdd: PropTypes.func.isRequired,
   history: RouterHistorySchema.isRequired,
   match: RouterMatchSchema.isRequired,
 }
 
-export default connect(null, { eventsAdd })(Event)
+export default connect(
+  ({ events }) => ({ events }),
+  { eventsAdd },
+)(Event)
