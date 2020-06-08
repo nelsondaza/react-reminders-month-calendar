@@ -116,6 +116,31 @@ describe('components::MonthCalendar::Day', () => {
         of: () => tc.scope.find('SimpleButton').filter({ value: '+ 3 more' }).exists(),
       })
     })
+
+    it('can be expanded when more than maxVisibleEvents', () => {
+      tc.setProps({
+        events: [m.event(1), m.event(2), m.event(3), m.event(4)],
+        maxVisibleEvents: 1,
+      })
+
+      expectBecameTrue({
+        fn: () => tc.scope.find('SimpleButton').filter({ value: '+ 3 more' }).simulate('click'),
+        of: () => tc.scope.find(`.${styles.list}`).exists(),
+      })
+    })
+
+    it('can be collapsed clicking on cover zone', () => {
+      tc.setProps({
+        events: [m.event(1), m.event(2), m.event(3), m.event(4)],
+        maxVisibleEvents: 1,
+      })
+      tc.scope.find('SimpleButton').filter({ value: '+ 3 more' }).simulate('click')
+
+      expectBecameFalse({
+        fn: () => tc.scope.find(`.${styles.cover}`).simulate('click'),
+        of: () => tc.scope.find(`.${styles.list}`).exists(),
+      })
+    })
   })
 
   describe('onAddEvent', () => {

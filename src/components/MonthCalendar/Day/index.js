@@ -30,6 +30,8 @@ class Day extends React.PureComponent {
     && this.props.onAddEvent(evt)
   )
 
+  onCollapse = () => this.setState({ expanded: false })
+
   onRemoveAllEvents = () => this.props.events.forEach(this.props.onRemoveEvent)
 
   renderEvents(maxVisibleEvents) {
@@ -87,8 +89,8 @@ class Day extends React.PureComponent {
             <>
               <div
                 className={styles.cover}
-                onClick={e => e.preventDefault() || this.setState({ expanded: false })}
-                onKeyPress={e => e.preventDefault() || this.setState({ expanded: false })}
+                onClick={this.onCollapse}
+                onKeyPress={this.onCollapse}
                 role="link"
                 tabIndex={-1}
               />
