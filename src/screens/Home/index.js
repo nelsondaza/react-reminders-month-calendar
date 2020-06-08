@@ -14,10 +14,12 @@ import { fakeEvent } from 'constants'
 
 import styles from './index.scss'
 
+const TOTAL_RAND_EVENTS = 20
+
 class Home extends React.PureComponent {
   createRandomEvents = () => {
     const day = +(this.props.match.params.day || new Date())
-    for (let c = 0; c <= 20; c += 1) {
+    for (let c = 0; c < TOTAL_RAND_EVENTS; c += 1) {
       this.props.eventsAdd(fakeEvent(
         moment(day).startOf('month'),
         moment(day).endOf('month'),
@@ -99,6 +101,8 @@ Home.propTypes = {
   history: RouterHistorySchema.isRequired,
   match: RouterMatchSchema.isRequired,
 }
+
+export class Pure extends Home {}
 
 export default connect(
   ({ events }) => ({ events }),
