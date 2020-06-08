@@ -16,7 +16,7 @@ Create a calendar application by rendering a single month view of a calendar for
  - [x] Unit test the functionality: Ability to add a new "reminder" (max 30 chars) for a user entered day and time. Also, include a city.
 
 ### Bonus (Optional)
- - [ ] Expand the calendar to support more than the current month.
+ - [x] Expand the calendar to support more than the current month.
  - [x] Properly handle overflow when multiple reminders appear on the same date.
  - [ ] Functionality to delete one or ALL the reminders for a specific day
 

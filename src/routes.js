@@ -14,7 +14,7 @@ export default () => (
   <Site>
     <Suspense fallback={<ProgressBar ariaLabel="Cargando..." value={100} />}>
       <Switch>
-        <Route path="/" component={HomePage} exact />
+        <Route path="/:day?" component={HomePage} exact />
         <Route path="/event/:id/:day?" component={EventPage} exact />
 
         <Route component={NotFoundPage} />

@@ -16,16 +16,18 @@ class MonthCalendar extends React.PureComponent {
     .filter(event => moment(event.datetime).isSame(day, 'day'))
 
   renderDays() {
+    const month = moment(this.props.month)
     const today = moment().startOf('day')
-    const firstDay = today.clone()
+
+    const firstDay = month.clone()
       .startOf('month').startOf('week')
-    const lastDay = today.clone()
+    const lastDay = month.clone()
       .endOf('month').endOf('week')
 
     const days = []
     while (lastDay.diff(firstDay, 'days', true) >= 0) {
       const value = firstDay.valueOf()
-      const readOnly = !firstDay.isSame(today, 'month')
+      const readOnly = !firstDay.isSame(month, 'month')
       days.push(
         <Day
           active={firstDay.isSame(today, 'day')}
@@ -72,10 +74,12 @@ MonthCalendar.propTypes = {
   onAddEvent: PropTypes.func.isRequired,
   onEditEvent: PropTypes.func.isRequired,
 
+  month: PropTypes.number,
   className: PropTypes.string,
 }
 
 MonthCalendar.defaultProps = {
+  month: moment().valueOf(),
   className: '',
 }
 
