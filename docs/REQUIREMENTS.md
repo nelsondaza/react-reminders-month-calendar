@@ -8,11 +8,11 @@
 Create a calendar application by rendering a single month view of a calendar for the current month
 
 ## Mandatory Features
- - [ ] Ability to add a new "reminder" (max 30 chars) for a user entered day and time. Also, include a city.
+ - [x] Ability to add a new "reminder" (max 30 chars) for a user entered day and time. Also, include a city.
  - [x] Display reminders on the calendar view in the correct time order.
- - [ ] Allow the user to select color when creating a reminder and display it appropriately.
+ - [x] Allow the user to select color when creating a reminder and display it appropriately.
  - [x] Ability to edit reminders – including changing text, city, day, time and color.
- - [ ] Add a weather service call from a free API such as Open Weather Map, and get the weather forecast (ex. Rain) for the date of the calendar reminder based on the city.
+ - [x] Add a weather service call from a free API such as Open Weather Map, and get the weather forecast (ex. Rain) for the date of the calendar reminder based on the city.
  - [x] Unit test the functionality: Ability to add a new "reminder" (max 30 chars) for a user entered day and time. Also, include a city.
 
 ### Bonus (Optional)
@@ -28,4 +28,4 @@ Create a calendar application by rendering a single month view of a calendar for
    - UI Elements.
    - Date/Time handling.
  - [x] You must create the calendar component yourself. Do not use calendar libraries like FullCalendar or Bootstrap Calendar.
- - [ ] If you use an external API, make sure to provide working API keys.
+ - [x] If you use an external API, make sure to provide working API keys.
