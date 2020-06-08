@@ -25,7 +25,6 @@ class Event extends React.PureComponent {
     cityError: false,
     citySearch: '',
     color: '#3B6CF6',
-    colorError: false,
     datetime: +new Date(),
     datetimeError: false,
     description: '',
@@ -40,7 +39,7 @@ class Event extends React.PureComponent {
     if (id !== state.id) {
       const newState = {
         id,
-        datetime: new Date(+props.match.params.day),
+        datetime: props.match.params.day ? new Date(+props.match.params.day) : new Date(),
       }
 
       if (id) {
@@ -95,10 +94,12 @@ class Event extends React.PureComponent {
     forecast: this.getForecast(datetime),
   })
 
-  onChangeField = ({ target: { name, value } }) => this.setState({
-    [name]: value,
-    [`${name}Error`]: false,
+  onChangeDescription = ({ target: { value } }) => this.setState({
+    description: value,
+    descriptionError: false,
   })
+
+  onHideColorPicker = () => this.setState({ showColorPicker: false })
 
   onSave = (evt) => {
     evt.preventDefault()
@@ -108,10 +109,6 @@ class Event extends React.PureComponent {
 
     if (!newState.city) {
       newState.cityError = true
-      errors += 1
-    }
-    if (!newState.color || !newState.color.match(/^#([0-9a-f]{6})$/i)) {
-      newState.colorError = true
       errors += 1
     }
     if (!newState.description) {
@@ -198,7 +195,7 @@ class Event extends React.PureComponent {
           <div>
             <Form>
               <Form.Group widths="equal">
-                <Form.Field required>
+                <Form.Field required id="datetime_field">
                   {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                   <label htmlFor="datetime">Date & Time</label>
                   <DatePicker
@@ -223,7 +220,7 @@ class Event extends React.PureComponent {
                   label="Reminder"
                   maxLength={30}
                   name="description"
-                  onChange={this.onChangeField}
+                  onChange={this.onChangeDescription}
                   placeholder="Description..."
                   required
                   value={this.state.description}
@@ -234,8 +231,8 @@ class Event extends React.PureComponent {
                     <>
                       <div
                         className={styles.cover}
-                        onClick={() => this.setState({ showColorPicker: false })}
-                        onKeyPress={() => this.setState({ showColorPicker: false })}
+                        onClick={this.onHideColorPicker}
+                        onKeyPress={this.onHideColorPicker}
                         role="link"
                         tabIndex={-1}
                       />
@@ -249,10 +246,10 @@ class Event extends React.PureComponent {
                     </>
                   )}
                   {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                  <label htmlFor="color2">Color</label>
+                  <label htmlFor="color">Color</label>
                   <Chip
                     ariaLabel={this.state.description}
-                    style={{ color: this.state.color || 'inherit' }}
+                    style={{ color: this.state.color }}
                     onClick={() => this.setState({ showColorPicker: true })}
                   >
                     {this.state.description || 'Color Preview'}
@@ -306,6 +303,8 @@ Event.propTypes = {
   history: RouterHistorySchema.isRequired,
   match: RouterMatchSchema.isRequired,
 }
+
+export class Pure extends Event {}
 
 export default connect(
   ({ cities, events }) => ({ cities, events }),
