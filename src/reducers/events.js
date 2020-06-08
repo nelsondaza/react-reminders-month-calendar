@@ -9,6 +9,11 @@ export default (state = actions.getInitialState().events, action = {}) => {
         action.payload,
       ]
     }
+    case actions.EVENTS_REMOVE: {
+      return [
+        ...state.filter(event => event.id !== action.payload),
+      ]
+    }
     default:
   }
   return state

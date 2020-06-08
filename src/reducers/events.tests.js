@@ -40,4 +40,14 @@ describe('reducer::events', () => {
       )
     })
   })
+
+  describe('EVENTS_REMOVE', () => {
+    it('removes an event from the events list', () => {
+      expectState(
+        actions.eventsRemove(m.event().id),
+        [],
+        [m.event()],
+      )
+    })
+  })
 })
