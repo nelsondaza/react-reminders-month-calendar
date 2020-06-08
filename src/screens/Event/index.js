@@ -1,15 +1,17 @@
 
+import { getIconImageURL } from 'constants'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import DatePicker from 'react-datepicker'
-import { Button, Form } from 'semantic-ui-react'
+import moment from 'moment'
+import { Button, Flag, Form } from 'semantic-ui-react'
 import { SketchPicker } from 'react-color'
 
 import Chip from 'components/Chip'
 import SimpleButton from 'components/SimpleButton'
-import { eventsAdd } from 'actions'
+import { citiesFetch, citiesFetchCanceled, eventsAdd } from 'actions'
 import { EventSchema, RouterHistorySchema, RouterMatchSchema } from 'schemas'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -18,15 +20,17 @@ import styles from './index.scss'
 
 class Event extends React.PureComponent {
   state = {
-    id: 0,
-    city: '',
+    id: null,
+    city: null,
     cityError: false,
+    citySearch: '',
     color: '#3B6CF6',
     colorError: false,
     datetime: +new Date(),
     datetimeError: false,
     description: '',
     descriptionError: false,
+    forecast: null,
     showColorPicker: false,
   }
 
@@ -42,10 +46,11 @@ class Event extends React.PureComponent {
       if (id) {
         const event = props.events.find(e => e.id === id)
         if (event) {
-          newState.city = event.city.name
+          newState.city = event.city
           newState.color = event.color
           newState.datetime = event.datetime
           newState.description = event.description
+          newState.forecast = event.forecast
         }
       }
       return newState
@@ -53,9 +58,42 @@ class Event extends React.PureComponent {
     return null
   }
 
+  componentWillUnmount() {
+    this.props.citiesFetchCanceled()
+  }
+
+  getForecast = (datetime) => {
+    const actualDay = +moment(+datetime).format('D')
+    const list = this.props.cities?.data?.list || []
+    return list.length > 0 ? list[actualDay % list.length].weather[0] : null
+  }
+
   onBackClick = () => this.props.history.push('/')
 
+  onChangeCity = () => this.setState(prevState => ({
+    city: this.props.cities.data.city,
+    cityError: false,
+    citySearch: '',
+    forecast: this.getForecast(prevState.datetime),
+  }))
+
+  onChangeCitySearch = ({ target: { value } }) => {
+    this.setState({
+      city: null,
+      cityError: false,
+      citySearch: value,
+      forecast: null,
+    })
+    this.props.citiesFetch(value)
+  }
+
   onChangeColor = ({ hex }) => this.setState({ color: hex, showColorPicker: false })
+
+  onChangeDatetime = datetime => this.setState({
+    datetime,
+    datetimeError: false,
+    forecast: this.getForecast(datetime),
+  })
 
   onChangeField = ({ target: { name, value } }) => this.setState({
     [name]: value,
@@ -85,24 +123,67 @@ class Event extends React.PureComponent {
       this.setState(newState)
     } else {
       this.props.eventsAdd({
-        city: {
-          country: 'CO',
-          id: +(new Date()),
-          name: newState.city,
-        },
+        city: newState.city,
         color: newState.color,
         datetime: +newState.datetime,
         description: newState.description,
-        forecast: {
-          description: 'broken clouds',
-          icon: '04d',
-          id: +(new Date()),
-          name: 'Clouds',
-        },
+        forecast: newState.forecast,
         id: this.state.id || +(new Date()),
       })
       this.onBackClick()
     }
+  }
+
+  renderCitySelector() {
+    const { city, cityError, citySearch, forecast } = this.state
+    const { cities } = this.props
+    const result = cities?.data?.city
+    const options = result
+      ? [{
+        flag: result?.country?.toLocaleLowerCase(),
+        key: result?.id,
+        text: result?.name,
+        value: result?.id,
+      }]
+      : []
+
+    if (options.length === 0 && forecast) {
+      options.push({
+        flag: city.country?.toLocaleLowerCase(),
+        key: city.id,
+        text: city.name,
+        value: city.id,
+      })
+    }
+
+    let noResultsMessage = `Searching for: "${cities?.key}"`
+    if (citySearch.length < 3) {
+      noResultsMessage = 'Use 3+ letters'
+    }
+    if (cities.loaded) {
+      noResultsMessage = `Without results for "${cities?.key}"`
+    }
+
+    return (
+      <Form.Dropdown
+        clearable
+        error={cityError}
+        fluid
+        label="City"
+        name="city"
+        noResultsMessage={noResultsMessage}
+        onChange={this.onChangeCity}
+        onSearchChange={this.onChangeCitySearch}
+        options={options}
+        placeholder="Search for a city name..."
+        required
+        search
+        searchQuery={citySearch}
+        selection
+        value={city?.id || ''}
+        width={4}
+      />
+    )
   }
 
   render() {
@@ -130,7 +211,7 @@ class Event extends React.PureComponent {
                       />
                     )}
                     dateFormat={format}
-                    onChange={datetime => this.setState({ datetime, datetimeError: false })}
+                    onChange={this.onChangeDatetime}
                     selected={this.state.datetime}
                     showTimeSelect
                   />
@@ -179,16 +260,20 @@ class Event extends React.PureComponent {
                 </Form.Field>
               </Form.Group>
               <Form.Group>
-                <Form.Input
-                  error={this.state.cityError}
-                  label="City"
-                  name="city"
-                  onChange={this.onChangeField}
-                  placeholder="City..."
-                  required
-                  value={this.state.city}
-                  width={4}
-                />
+                {this.renderCitySelector()}
+                {!!this.state.city && (
+                  <div className={styles.weather}>
+                    <b>{this.state.city.name}, {this.state.city.country} </b>
+                    <Flag name={this.state.city.country.toLocaleLowerCase()} />
+                    <br />
+                    <img
+                      alt={this.state.forecast.main}
+                      height={30}
+                      src={getIconImageURL(this.state.forecast.icon)}
+                    />
+                    <b>{this.state.forecast.main}</b> {this.state.forecast.description}
+                  </div>
+                )}
               </Form.Group>
               <Form.Group>
                 <Button onClick={this.onSave} primary>Save</Button>
@@ -206,6 +291,17 @@ class Event extends React.PureComponent {
 }
 
 Event.propTypes = {
+  cities: PropTypes.shape({
+    data: PropTypes.shape({
+      city: PropTypes.shape({}),
+      list: PropTypes.arrayOf(PropTypes.shape({})),
+    }),
+    key: PropTypes.string,
+    loaded: PropTypes.bool,
+    loading: PropTypes.bool,
+  }).isRequired,
+  citiesFetch: PropTypes.func.isRequired,
+  citiesFetchCanceled: PropTypes.func.isRequired,
   events: PropTypes.arrayOf(EventSchema).isRequired,
   eventsAdd: PropTypes.func.isRequired,
   history: RouterHistorySchema.isRequired,
@@ -213,6 +309,6 @@ Event.propTypes = {
 }
 
 export default connect(
-  ({ events }) => ({ events }),
-  { eventsAdd },
+  ({ cities, events }) => ({ cities, events }),
+  { citiesFetch, citiesFetchCanceled, eventsAdd },
 )(Event)

@@ -18,6 +18,16 @@
   z-index: 1;
 }
 
+.weather {
+  padding-left: em(10);
+
+  & > img {
+    max-height: em(50);
+    max-width: em(50);
+    vertical-align: middle;
+  }
+}
+
 .footer {
   font-size: em(14);
   text-align: right;
