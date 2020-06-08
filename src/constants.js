@@ -15,3 +15,6 @@ export const getAPI = (props) => {
 
   return `${endpoint}?${query}`
 }
+
+
+export const getIconImageURL = icon => `http://openweathermap.org/img/wn/${icon}.png`
