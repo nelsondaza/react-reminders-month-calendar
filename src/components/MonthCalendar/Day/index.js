@@ -7,24 +7,33 @@ import moment from 'moment'
 import { Icon } from 'semantic-ui-react'
 
 import Chip from 'components/Chip'
-import SimpleButton from 'components/SimpleButton'
 import EventSchema from 'schemas/EventSchema'
+import SimpleButton from 'components/SimpleButton'
 
 import styles from './index.scss'
 
 class Day extends React.PureComponent {
+  state = {
+    expanded: false,
+  }
+
   getTotalHiddenEvents = () => (
     this.props.events.length > this.props.maxVisibleEvents
       ? this.props.events.length - this.props.maxVisibleEvents
       : 0
   )
 
-  onAddEvent = evt => !this.props.readOnly && evt.target.nodeName !== 'BUTTON' && this.props.onAddEvent(evt)
+  onAddEvent = evt => (
+    !this.props.readOnly
+    && evt.target.nodeName !== 'BUTTON'
+    && evt.target.className !== styles.cover
+    && this.props.onAddEvent(evt)
+  )
 
   onRemoveAllEvents = () => this.props.events.forEach(this.props.onRemoveEvent)
 
-  renderEvents() {
-    const { events, maxVisibleEvents, onEditEvent, readOnly } = this.props
+  renderEvents(maxVisibleEvents) {
+    const { events, onEditEvent, readOnly } = this.props
     return [...events]
       .sort((a, b) => (a.datetime - b.datetime))
       .slice(0, maxVisibleEvents)
@@ -43,7 +52,16 @@ class Day extends React.PureComponent {
   }
 
   render() {
-    const { active, className, day, highlight, readOnly } = this.props
+    const {
+      active,
+      className,
+      day,
+      events,
+      highlight,
+      maxVisibleEvents,
+      readOnly,
+    } = this.props
+    const { expanded } = this.state
     const totalHiddenElements = this.getTotalHiddenEvents()
 
     return (
@@ -53,6 +71,7 @@ class Day extends React.PureComponent {
           styles.wrapper,
           readOnly && styles.readOnly,
           highlight && styles.highlight,
+          expanded && styles.expanded,
         )}
         role="link"
         onClick={this.onAddEvent}
@@ -63,25 +82,42 @@ class Day extends React.PureComponent {
           <span>{day}</span>
         </div>
         <div className={styles.events}>
-          {this.renderEvents()}
-        </div>
-        <div className={styles.more}>
-          {totalHiddenElements > 0 && (
-            <SimpleButton
-              disabled={readOnly}
-              primary
-              value={`+ ${totalHiddenElements} more`}
-            />
-          )}
-          {!readOnly && this.props.events.length > 0 && (
-            <SimpleButton
-              className={styles.remove}
-              onClick={this.onRemoveAllEvents}
-            >
-              <Icon fitted color="red" name="trash alternate outline" />
-            </SimpleButton>
+          {this.renderEvents(maxVisibleEvents)}
+          {expanded && (
+            <>
+              <div
+                className={styles.cover}
+                onClick={e => e.preventDefault() || this.setState({ expanded: false })}
+                onKeyPress={e => e.preventDefault() || this.setState({ expanded: false })}
+                role="link"
+                tabIndex={-1}
+              />
+              <div className={styles.list}>
+                {this.renderEvents(events.length)}
+              </div>
+            </>
           )}
         </div>
+        {!expanded && (
+          <div className={styles.more}>
+            {totalHiddenElements > 0 && (
+              <SimpleButton
+                disabled={readOnly}
+                onClick={() => this.setState({ expanded: true })}
+                primary
+                value={`+ ${totalHiddenElements} more`}
+              />
+            )}
+            {!readOnly && this.props.events.length > 0 && (
+              <SimpleButton
+                className={styles.remove}
+                onClick={this.onRemoveAllEvents}
+              >
+                <Icon fitted color="red" name="trash alternate outline" />
+              </SimpleButton>
+            )}
+          </div>
+        )}
       </div>
     )
   }

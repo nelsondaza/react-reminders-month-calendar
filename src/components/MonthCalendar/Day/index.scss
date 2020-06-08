@@ -5,16 +5,43 @@
   outline: none;
 }
 
+.expanded {
+  & .events {
+    position: relative;
+    overflow: visible;
+  }
+}
+
 .number {
   flex: 0 1 auto;
   text-align: right;
   font-weight: bold;
-  padding-bottom: em(5);
 }
 
 .events {
   flex: 1 1 auto;
   overflow: hidden;
+}
+
+.list {
+  background-color: $white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  overflow-y: auto;
+}
+
+.cover {
+  bottom: 0;
+  left: 0;
+  outline: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
 }
 
 .event {
