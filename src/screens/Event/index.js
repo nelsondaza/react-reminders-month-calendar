@@ -65,7 +65,7 @@ class Event extends React.PureComponent {
   getForecast = (datetime) => {
     const actualDay = +moment(+datetime).format('D')
     const list = this.props.cities?.data?.list || []
-    return list.length > 0 ? list[actualDay % list.length].weather[0] : null
+    return list.length > 0 ? list[actualDay % list.length].weather[0] : this.state.forecast
   }
 
   onBackClick = () => this.props.history.push('/')
