@@ -5,5 +5,5 @@ export default buildMock({
   description: 'broken clouds',
   icon: '04d',
   id: 20,
-  name: 'Clouds',
+  main: 'Clouds',
 })
