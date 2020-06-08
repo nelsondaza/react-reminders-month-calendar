@@ -1,5 +1,4 @@
 
-import SimpleButton from 'components/SimpleButton'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -8,11 +7,24 @@ import moment from 'moment'
 import { Icon } from 'semantic-ui-react'
 
 import MonthCalendar from 'components/MonthCalendar'
+import SimpleButton from 'components/SimpleButton'
+import { eventsAdd } from 'actions'
 import { EventSchema, RouterHistorySchema, RouterMatchSchema } from 'schemas'
+import { fakeEvent } from 'constants'
 
 import styles from './index.scss'
 
 class Home extends React.PureComponent {
+  createRandomEvents = () => {
+    const day = +(this.props.match.params.day || new Date())
+    for (let c = 0; c <= 20; c += 1) {
+      this.props.eventsAdd(fakeEvent(
+        moment(day).startOf('month'),
+        moment(day).endOf('month'),
+      ))
+    }
+  }
+
   navToNextMonth = () => {
     const day = +(this.props.match.params.day || new Date())
     this.props.history.push(`/${moment(day).add(1, 'months').valueOf()}`)
@@ -47,7 +59,7 @@ class Home extends React.PureComponent {
             </SimpleButton>
             {!moment().isSame(moment(day), 'month') && (
               <small>
-                <SimpleButton onClick={this.navToCurrentMonth}>Today</SimpleButton>
+                <SimpleButton secondary onClick={this.navToCurrentMonth}>Today</SimpleButton>
               </small>
             )}
           </h1>
@@ -61,6 +73,14 @@ class Home extends React.PureComponent {
           </div>
         </div>
         <footer className={styles.footer}>
+          <SimpleButton
+            primary
+            className={styles.rand}
+            onClick={this.createRandomEvents}
+          >
+            <Icon link name="magic" /> Add some random events
+          </SimpleButton>
+          <br />
           <b>Current date: </b>
           {moment().format('YYYY-MM-DD')}
         </footer>
@@ -71,8 +91,12 @@ class Home extends React.PureComponent {
 
 Home.propTypes = {
   events: PropTypes.arrayOf(EventSchema).isRequired,
+  eventsAdd: PropTypes.func.isRequired,
   history: RouterHistorySchema.isRequired,
   match: RouterMatchSchema.isRequired,
 }
 
-export default connect(({ events }) => ({ events }))(Home)
+export default connect(
+  ({ events }) => ({ events }),
+  { eventsAdd },
+)(Home)

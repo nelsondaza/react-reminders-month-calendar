@@ -20,7 +20,6 @@ body {
   font-size: inherit;
   font-variant-ligatures: common-ligatures;
   line-height: inherit;
-  padding-top: em(40);
 
   & > #GLOBAL_app {
     height: auto;
@@ -28,7 +27,7 @@ body {
     max-width: em(1300);
     min-height: 100%;
     overflow-x: hidden;
-    padding: em(20) em(10);
+    padding: em(10) em(10);
 
     & > .GLOBAL_Site {
       height: auto;
