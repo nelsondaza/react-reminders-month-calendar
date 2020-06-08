@@ -68,7 +68,7 @@ class Event extends React.PureComponent {
     return list.length > 0 ? list[actualDay % list.length].weather[0] : this.state.forecast
   }
 
-  onBackClick = () => this.props.history.push('/')
+  onBackClick = () => this.props.history.goBack()
 
   onChangeCity = () => this.setState(prevState => ({
     city: this.props.cities.data.city,
@@ -130,7 +130,7 @@ class Event extends React.PureComponent {
         forecast: newState.forecast,
         id: this.state.id || +(new Date()),
       })
-      this.onBackClick()
+      this.props.history.push(`/${+newState.datetime}`)
     }
   }
 
