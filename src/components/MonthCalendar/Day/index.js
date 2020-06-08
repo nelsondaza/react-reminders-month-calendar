@@ -74,12 +74,12 @@ class Day extends React.PureComponent {
             />
           )}
           {!readOnly && this.props.events.length > 0 && (
-            <Icon
+            <SimpleButton
               className={styles.remove}
-              color="red"
-              name="trash alternate outline"
               onClick={this.onRemoveAllEvents}
-            />
+            >
+              <Icon fitted color="red" name="trash alternate outline" />
+            </SimpleButton>
           )}
         </div>
       </div>
