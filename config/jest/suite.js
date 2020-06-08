@@ -3,6 +3,8 @@ import React from 'react'
 import Adapter from 'enzyme-adapter-react-16'
 import Enzyme, { shallow, render, mount } from 'enzyme'
 
+import store from 'store'
+
 import { ajaxInterceptor, epicToPromise } from './suiteEpics'
 
 Enzyme.configure({ adapter: new Adapter() })
@@ -39,7 +41,7 @@ global.FileReader.prototype = fileReaderProps
 
 const createElementConnected = (Component, props) => React.createElement(
   Component,
-  { ...props, store: {} },
+  { ...props, store },
 )
 
 const createElement = (Component, props, connected) => {
