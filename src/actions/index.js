@@ -4,8 +4,9 @@ export * from './cities'
 
 export const getInitialState = () => ({
   cities: {
+    data: null,
+    error: null,
     key: '',
-    data: [],
     loaded: false,
     loading: false,
   },

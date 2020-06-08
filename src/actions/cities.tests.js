@@ -1,6 +1,7 @@
 
-import * as actions from './cities'
+import { getAPI } from 'constants'
 
+import * as actions from './cities'
 
 describe('actions::cities', () => {
   it('citiesFetchCanceled returns correct action', () => {
@@ -20,11 +21,7 @@ describe('actions::cities', () => {
   })
 
   it('citiesFetchEpic returns correct response', () => {
-    ajaxIntercept(
-      'GET',
-      'https://api.openweathermap.org/data/2.5/find?q=city&type=like&cnt=30&appid=4261fc9ccbfd90c8600afd9bc9cfc6bf',
-      { list: [] },
-    )
+    ajaxIntercept('GET', getAPI({ q: 'city' }), { list: [] })
     return epicToPromise(
       actions.citiesFetchEpic,
       actions.citiesFetch('city'),
@@ -36,12 +33,7 @@ describe('actions::cities', () => {
   })
 
   it('citiesFetchEpic throws error', () => {
-    ajaxIntercept(
-      'GET',
-      'https://api.openweathermap.org/data/2.5/find?q=city&type=like&cnt=30&appid=4261fc9ccbfd90c8600afd9bc9cfc6bf',
-      { message: 'error msg' },
-      400,
-    )
+    ajaxIntercept('GET', getAPI({ q: 'city' }), { message: 'error msg' }, 400)
     return epicToPromise(
       actions.citiesFetchEpic,
       actions.citiesFetch('city'),
