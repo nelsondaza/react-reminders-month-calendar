@@ -30,6 +30,7 @@
   font-size: em(12);
   padding-top: em(5, 12);
   text-align: center;
+  min-height: em(22, 12);
 }
 
 .readOnly {
@@ -51,4 +52,9 @@
     margin: em(-2) em(-2) 0 0;
     border-radius: em(6);
   }
+}
+
+.remove {
+  float: right;
+  cursor: pointer;
 }

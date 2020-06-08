@@ -16,6 +16,7 @@ describe('components::MonthCalendar::Day', () => {
       ],
       onAddEvent: jest.fn(),
       onEditEvent: jest.fn(),
+      onRemoveEvent: jest.fn(),
     },
   )
 
@@ -58,6 +59,14 @@ describe('components::MonthCalendar::Day', () => {
       fn: () => tc.scope.find('Chip').at(0).simulate('click', m.event()),
       of: () => tc.getProp('onEditEvent').mock.calls.length,
       by: 1,
+    })
+  })
+
+  it('onRemoveEvent is called for each event', () => {
+    expectChange({
+      fn: () => tc.scope.find('Icon').simulate('click'),
+      of: () => tc.getProp('onRemoveEvent').mock.calls.length,
+      by: 2,
     })
   })
 

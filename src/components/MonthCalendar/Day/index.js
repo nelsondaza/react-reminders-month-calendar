@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 import moment from 'moment'
+import { Icon } from 'semantic-ui-react'
 
 import Chip from 'components/Chip'
 import SimpleButton from 'components/SimpleButton'
@@ -19,6 +20,8 @@ class Day extends React.PureComponent {
   )
 
   onAddEvent = evt => !this.props.readOnly && evt.target.nodeName !== 'BUTTON' && this.props.onAddEvent(evt)
+
+  onRemoveAllEvents = () => this.props.events.forEach(this.props.onRemoveEvent)
 
   renderEvents() {
     const { events, maxVisibleEvents, onEditEvent, readOnly } = this.props
@@ -62,11 +65,23 @@ class Day extends React.PureComponent {
         <div className={styles.events}>
           {this.renderEvents()}
         </div>
-        {totalHiddenElements > 0 && (
-          <div className={styles.more}>
-            <SimpleButton disabled={readOnly} value={`+ ${totalHiddenElements} more`} primary />
-          </div>
-        )}
+        <div className={styles.more}>
+          {totalHiddenElements > 0 && (
+            <SimpleButton
+              disabled={readOnly}
+              primary
+              value={`+ ${totalHiddenElements} more`}
+            />
+          )}
+          {!readOnly && this.props.events.length > 0 && (
+            <Icon
+              className={styles.remove}
+              color="red"
+              name="trash alternate outline"
+              onClick={this.onRemoveAllEvents}
+            />
+          )}
+        </div>
       </div>
     )
   }
@@ -77,6 +92,7 @@ Day.propTypes = {
   events: PropTypes.arrayOf(EventSchema).isRequired,
   onAddEvent: PropTypes.func.isRequired,
   onEditEvent: PropTypes.func.isRequired,
+  onRemoveEvent: PropTypes.func.isRequired,
 
   active: PropTypes.bool,
   className: PropTypes.string,
