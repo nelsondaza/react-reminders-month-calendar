@@ -1,7 +1,7 @@
 
 import * as exports from './index'
 
-describe('echemas', () => {
+describe('schemas', () => {
   it('exports the right elements', () => {
     expectKeys(
       exports,
