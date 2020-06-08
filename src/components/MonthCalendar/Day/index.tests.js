@@ -64,7 +64,7 @@ describe('components::MonthCalendar::Day', () => {
 
   it('onRemoveEvent is called for each event', () => {
     expectChange({
-      fn: () => tc.scope.find('Icon').simulate('click'),
+      fn: () => tc.scope.find('SimpleButton').filter({ className: styles.remove }).simulate('click'),
       of: () => tc.getProp('onRemoveEvent').mock.calls.length,
       by: 2,
     })
