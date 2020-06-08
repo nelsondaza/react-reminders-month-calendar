@@ -1,7 +1,7 @@
 
 # Things to keep in mind for this project
  - [x] attention to details
- - [ ] cross-browser compatibility
+ - [x] cross-browser compatibility
  - [x] standards
  - [x] reusability.
 
