@@ -18,7 +18,7 @@ Create a calendar application by rendering a single month view of a calendar for
 ### Bonus (Optional)
  - [x] Expand the calendar to support more than the current month.
  - [x] Properly handle overflow when multiple reminders appear on the same date.
- - [ ] Functionality to delete one or ALL the reminders for a specific day
+ - [x] Functionality to delete one or ALL the reminders for a specific day
 
 ## Considerations
  - [x] Redux (or any other state manager) structure of the calendar.

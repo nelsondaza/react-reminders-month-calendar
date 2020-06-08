@@ -8,7 +8,7 @@ import { Icon } from 'semantic-ui-react'
 
 import MonthCalendar from 'components/MonthCalendar'
 import SimpleButton from 'components/SimpleButton'
-import { eventsAdd } from 'actions'
+import { eventsAdd, eventsRemove } from 'actions'
 import { EventSchema, RouterHistorySchema, RouterMatchSchema } from 'schemas'
 import { fakeEvent } from 'constants'
 
@@ -43,6 +43,8 @@ class Home extends React.PureComponent {
 
   onEditEvent = ({ datetime, id }) => this.props.history.push(`/event/${id}/${datetime}`)
 
+  onRemoveEvent = ({ id }) => this.props.eventsRemove(id)
+
   render() {
     const day = +(this.props.match.params.day || new Date())
 
@@ -69,6 +71,7 @@ class Home extends React.PureComponent {
               month={day}
               onAddEvent={this.onAddEvent}
               onEditEvent={this.onEditEvent}
+              onRemoveEvent={this.onRemoveEvent}
             />
           </div>
         </div>
@@ -92,11 +95,12 @@ class Home extends React.PureComponent {
 Home.propTypes = {
   events: PropTypes.arrayOf(EventSchema).isRequired,
   eventsAdd: PropTypes.func.isRequired,
+  eventsRemove: PropTypes.func.isRequired,
   history: RouterHistorySchema.isRequired,
   match: RouterMatchSchema.isRequired,
 }
 
 export default connect(
   ({ events }) => ({ events }),
-  { eventsAdd },
+  { eventsAdd, eventsRemove },
 )(Home)
