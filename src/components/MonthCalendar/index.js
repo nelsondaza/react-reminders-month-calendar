@@ -38,6 +38,7 @@ class MonthCalendar extends React.PureComponent {
           key={value}
           onAddEvent={() => this.props.onAddEvent(value)}
           onEditEvent={this.props.onEditEvent}
+          onRemoveEvent={this.props.onRemoveEvent}
           readOnly={readOnly}
         />,
       )
@@ -73,6 +74,7 @@ MonthCalendar.propTypes = {
   events: PropTypes.arrayOf(EventSchema).isRequired,
   onAddEvent: PropTypes.func.isRequired,
   onEditEvent: PropTypes.func.isRequired,
+  onRemoveEvent: PropTypes.func.isRequired,
 
   month: PropTypes.number,
   className: PropTypes.string,

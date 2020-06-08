@@ -25,6 +25,7 @@ const getProps = () => ({
   ]),
   onAddEvent: action('onAddEvent'),
   onEditEvent: action('onEditEvent'),
+  onRemoveEvent: action('onRemoveEvent'),
 })
 
 export const normal = () => (

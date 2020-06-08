@@ -16,6 +16,7 @@ describe('components::MonthCalendar', () => {
       ],
       onAddEvent: jest.fn(),
       onEditEvent: jest.fn(),
+      onRemoveEvent: jest.fn(),
     },
   )
 
@@ -34,6 +35,14 @@ describe('components::MonthCalendar', () => {
     expectChange({
       fn: () => tc.scope.find('Day').filter({ active: true }).at(0).simulate('addEvent'),
       of: () => tc.getProp('onAddEvent').mock.calls.length,
+      by: 1,
+    })
+  })
+
+  it('calls onRemoveEvent with the right datetime', () => {
+    expectChange({
+      fn: () => tc.scope.find('Day').filter({ active: true }).at(0).simulate('removeEvent'),
+      of: () => tc.getProp('onRemoveEvent').mock.calls.length,
       by: 1,
     })
   })
