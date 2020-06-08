@@ -11,4 +11,12 @@ describe('actions::events', () => {
         type: 'EVENTS_ADD',
       })
   })
+
+  it('eventsRemove returns correct action', () => {
+    expect(actions.eventsRemove(1))
+      .toEqual({
+        payload: 1,
+        type: 'EVENTS_REMOVE',
+      })
+  })
 })
