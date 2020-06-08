@@ -268,7 +268,6 @@ class Event extends React.PureComponent {
                     <br />
                     <img
                       alt={this.state.forecast.main}
-                      height={30}
                       src={getIconImageURL(this.state.forecast.icon)}
                     />
                     <b>{this.state.forecast.main}</b> {this.state.forecast.description}
