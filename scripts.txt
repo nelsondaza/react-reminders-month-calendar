@@ -1,1 +1,1 @@
-<head><link href="/css/vendors-react.b7bb44eb1df2a3ada026.css" rel="stylesheet"></head><script src="/js/vendors-react.3b86ed3a8e3389428ae3.js"></script><script src="/js/vendors-core-js.4e54daf32a3df89a4436.js"></script><script src="/js/bundle.88e06ab90b5ee0a3ea46.js"></script>
+<head><link href="./css/vendors-react.71e6897f0716a9d4eab5.css" rel="stylesheet"></head><script src="./js/vendors-react.d709c940caaf58749453.js"></script><script src="./js/vendors-core-js.4e54daf32a3df89a4436.js"></script><script src="./js/bundle.75aab2a2ad2b0a9c94d6.js"></script>
