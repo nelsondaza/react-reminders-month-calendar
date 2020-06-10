@@ -4,6 +4,7 @@
   "description": "Calendar reminders application using React",
   "main": "index.js",
   "repository": "https://github.com/nelsondaza/react-reminders-month-calendar.git",
+  "homepage": "https://nelsondaza.github.io/react-reminders-month-calendar",
   "author": "Nelson Daza <nelson.daza@gmail.com>",
   "license": "MIT",
   "browserslist": [
@@ -12,6 +13,10 @@
     "not ExplorerMobile < 11"
   ],
   "scripts": {
+    "build": "rm -rf ./dist/public && yarn compile",
+    "compile": "yarn install && yarn cross-env NODE_ENV=production webpack --env.env=prod -p --bail",
+    "deploy": "gh-pages -d ./dist/public",
+    "predeploy": "yarn build",
     "serve": "yarn install && yarn webpack-dev-server --env.env=dev --cache --bail",
     "stories": "yarn install && yarn test && yarn start-storybook -p 7074 -s ./static -c config/storybook --ci",
     "test": "jest --config=config/jest/index.js -u --json --outputFile=./dist/coverage/test-results.json",
@@ -21,6 +26,8 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
     "core-js": "^3.6.5",
+    "duplicate-package-checker-webpack-plugin": "^3.0.0",
+    "gh-pages": "^3.0.0",
     "history": "^4.10.1",
     "moment": "^2.26.0",
     "prop-types": "^15.7.2",
