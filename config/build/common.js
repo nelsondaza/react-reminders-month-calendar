@@ -61,7 +61,6 @@ const getRules = (publicPath, environment) => {
         {
           loader: 'css-loader',
           options: {
-            localsConvention: 'camelCase',
             importLoaders: 3,
             modules: {
               getLocalIdent: (context, localIdentName, localName) => {

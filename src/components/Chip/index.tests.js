@@ -1,8 +1,6 @@
 
 import Component from './index'
 
-import styles from './index.scss'
-
 describe('components::Chip', () => {
   const tc = createTestComponent(
     Component,

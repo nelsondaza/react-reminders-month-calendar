@@ -1,5 +1,5 @@
 
-const webpackMerge = require('webpack-merge')
+const webpackMerge = require('webpack-merge').merge
 
 const validations = require('./config/build/validations')
 const commonConfig = require('./config/build/webpack.common')

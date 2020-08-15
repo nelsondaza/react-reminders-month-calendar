@@ -104,13 +104,6 @@ const config = {
           name: 'common',
           priority: 0,
           reuseExistingChunk: true,
-          test: ({ context }, chunk) => {
-            if (chunk && chunk[0]) {
-              // eslint-disable-next-line no-console
-              console.log(`${chunk[0].name} -> ${context}`)
-            }
-            return true
-          },
         },
       },
     },
