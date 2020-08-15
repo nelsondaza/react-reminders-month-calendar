@@ -77,10 +77,17 @@ jobs:
 workflows:
   pr-tests:
     jobs:
-      - lint
+      - lint:
+          filters:
+            branches:
+              ignore: master
       - test:
+          args: "--runInBand"
           requires:
             - lint
+          filters:
+            branches:
+              ignore: master
 
   merge-compile:
     jobs:
