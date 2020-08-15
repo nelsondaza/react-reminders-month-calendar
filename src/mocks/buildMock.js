@@ -8,11 +8,11 @@
   mock.xType('DFGSKSA5DA4', { someProp: 'prop' })
 */
 
-export default (defaultProps) => (...datas) => {
-  let mock = { ...defaultProps }
-  datas.forEach((data) => Object.assign(
+export default defaultProps => (...datas) => {
+  const mock = { ...defaultProps }
+  datas.forEach(data => Object.assign(
     mock,
-    typeof data === 'string' || typeof data === 'number' ? { id: data } : data
+    typeof data === 'string' || typeof data === 'number' ? { id: data } : data,
   ))
   return mock
 }

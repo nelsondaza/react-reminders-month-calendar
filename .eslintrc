@@ -1,9 +1,10 @@
 {
   "env": {
     "browser": true,
-    "jest": true
+    "jest": true,
+    "node": true
   },
-  "extends": "airbnb",
+  "extends": ["airbnb"],
   "globals": {
     "ajaxIntercept": true,
     "createTestComponent": true,
@@ -23,20 +24,20 @@
     "import/no-extraneous-dependencies": [ "error", { "packageDir": "./" } ],
     "import/prefer-default-export": "off",
     "jsx-a11y/control-has-associated-label": "off",
-    "react/destructuring-assignment": "off",
-    "react/forbid-prop-types": "off",
-    "react/jsx-one-expression-per-line": "off",
     "max-classes-per-file": ["error", 2],
-    "react-hooks/exhaustive-deps": "error",
-    "react-hooks/rules-of-hooks": "error",
-    "semi": ["error", "never"],
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 1, "maxEOF": 1 }],
     "object-curly-newline": [ "error", {
       "multiline": true,
       "minProperties": 7,
       "consistent": true
     }],
     "operator-linebreak": ["error", "before"],
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react/destructuring-assignment": "off",
+    "react/forbid-prop-types": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "react/no-deprecated": "error",
     "react/sort-comp": ["error", {
@@ -50,7 +51,8 @@
       ],
       "groups": { "sub-rendering": [ "/^(shouldRender|render).+$/" ] }
     }],
-    "react/state-in-constructor": "off"
+    "react/state-in-constructor": "off",
+    "semi": ["error", "never"]
   },
   "settings": {
     "import/resolver": { "node": { "paths": ["src", "src/packages"] } },

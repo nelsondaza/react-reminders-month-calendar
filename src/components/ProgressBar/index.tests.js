@@ -34,7 +34,6 @@ describe('ui::components::ProgressBar', () => {
     })
   })
 
-
   it('uses alert styles prop is set', () => {
     expectBecameTrue({
       fn: () => tc.setProps({ alert: true }),

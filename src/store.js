@@ -1,4 +1,5 @@
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { createBrowserHistory } from 'history'
 import { createEpicMiddleware } from 'redux-observable'
 import { createStore, applyMiddleware } from 'redux'
