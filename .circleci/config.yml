@@ -1,0 +1,90 @@
+version: 2.1
+
+orbs:
+  node: artsy/node@1.0.0
+
+commands:
+  # https://circleci.com/docs/2.0/caching/#basic-example-of-dependency-caching
+  save_dependencies:
+    steps:
+      - save_cache:
+          key: yarn-deps-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+
+  # If there isn't a match to the first key, it'll do a partial match of the.
+  # second. That means after the first cache save there will always be a cache
+  # hit, but it might be an older version of the cache
+  #
+  # https://circleci.com/docs/2.0/caching/#restoring-cache
+  load_dependencies:
+    steps:
+      - restore_cache:
+          keys:
+            - yarn-deps-v1-{{ checksum "yarn.lock" }}
+
+  # By default when yarn runs it does not check the filesystem to ensure the
+  # packages it expects to be installed are actually installed. Using the
+  # --check-files flag ensures that any packages or files missing or out of date
+  # on the file system (i.e. those which might be restored from cache) match what
+  # the yarn.lock file specifies
+  install:
+    steps:
+      - run: yarn install
+
+  setup:
+    steps:
+      - checkout
+      - load_dependencies
+      - install
+      - save_dependencies
+
+  run-script:
+    parameters:
+      script:
+        type: string
+    steps:
+      - setup
+      - run: yarn << parameters.script >>
+
+jobs:
+  lint:
+    executor: node/build
+    steps:
+      - run-script:
+          script: lint
+
+  test:
+    executor: node/build
+    parameters:
+      args:
+        type: string
+        default: ""
+    steps:
+      - run-script:
+          script: test << parameters.args >>
+
+  compile:
+    executor: node/build
+    parameters:
+      args:
+        type: string
+        default: ""
+    steps:
+      - run-script:
+          script: compile << parameters.args >>
+
+workflows:
+  pr-tests:
+    jobs:
+      - lint
+      - test:
+          requires:
+            - lint
+
+  merge-compile:
+    jobs:
+      - compile:
+          filters:
+            branches:
+              only: master
