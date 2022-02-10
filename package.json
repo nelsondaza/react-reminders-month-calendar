@@ -91,7 +91,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.4.0",
     "mini-css-extract-plugin": "^0.10.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-browser-reporter": "^0.6.0",
     "postcss-discard-comments": "^4.0.2",
